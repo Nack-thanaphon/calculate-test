@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons/faCircleInfo";
 
 import { useState, ChangeEvent, FormEvent } from "react";
+import CustomTooltip from "../components/CustomTooltip";
+import { faChevronRight, faRedo } from "@fortawesome/free-solid-svg-icons";
 
 export default function Calculator() {
   const [price, setPrice] = useState<string>("15,000,000");
@@ -94,32 +96,35 @@ export default function Calculator() {
     Object.keys(errors).length === 0 && price && interestRate && years;
 
   return (
-    <div className="relative overflow-hidden sm:w-[850px] bg-[#FBE2EF] border-2 border-[#E8248D] mx-auto mt-10 p-8 shadow-lg rounded-[13px]">
+    <div className="relative overflow-hidden sm:w-[850px] bg-[#FBE2EF] border-2 border-[#E8248D] mx-auto mt-10 p-5 shadow-lg rounded-[13px]">
       <div className="absolute right-6 top-0 bg-[#E8248D] w-[96px] h-[96px] sm:block hidden"></div>
       <div className="mb-8">
         <h2 className="sm:text-[20px] font-bold  text-[#000000]  text-start">
           คำนวณสินเชื่ออสังหา เบื้องต้น
         </h2>
-        <p className="underline text-[#E8248D]">ข้อเสนอสุดพิเศษสำหรับคุณ</p>
+        <p className="underline text-[#E8248D] mt-3">
+          ข้อเสนอสุดพิเศษสำหรับคุณ{" "}
+          <FontAwesomeIcon icon={faChevronRight} className="ml-3" />
+        </p>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="sm:flex justify-between  gap-4">
           <div className="sm:w-[280px] mb-6">
             <label className="block text-black text-[14px] mb-2">
-              ราคาอสังหา
+              ราคาอสังหาฯ
             </label>
             <input
               type="text"
               value={price}
               onChange={handlePriceChange}
-              className={`w-full px-4 py-3 border bg-white mb-4 ${
+              className={`w-full px-4 py-3 border bg-white mb-1 ${
                 errors.price ? "border-red-500" : "border-gray-300"
               } rounded-[12px] text-xl`}
             />
             {errors.price && (
-              <p className="text-red-500 text-sm mt-1">{errors.price}</p>
+              <p className="text-red-500 text-sm my-2">{errors.price}</p>
             )}
-            <div className="flex flex-col md:flex-row gap-4 mb-2">
+            <div className="flex flex-col md:flex-row gap-4 mb-2 mt-3">
               <div className="flex-1">
                 <label className="block text-black text-[14px] mb-2">
                   อัตราดอกเบี้ย
@@ -168,8 +173,9 @@ export default function Calculator() {
               <button
                 type="button"
                 onClick={handleReset}
-                className="flex items-center text-[#E82583]  text-nowrap bg-transparent text-[16px] px-6 py-3 rounded-[12px] mr-3 font-bold"
+                className="flex items-center text-[#E82583]  text-nowrap bg-transparent text-[16px] px-6 py-3 rounded-[12px] mr-1 font-bold"
               >
+                <FontAwesomeIcon className="mr2" icon={faRedo} />
                 ล้างข้อมูล
               </button>
               <button
@@ -184,56 +190,54 @@ export default function Calculator() {
             </div>
           </div>
 
-          <div className="mb-6 sm:w-[804px] mt-5">
-            <label className="block text-black text-[14px] mb-2">
-              ผลคำนวณสินเชื่อ (กรณีกู้ได้ 100%)
-              <span
-                className="tooltip tooltip-bottom ml-2"
-                data-tip="ตัวเลขที่แสดงจะเป็นตัวเลขเฉพาะการกู้ โดยวิธีคำนวณง่ายๆ เงินเดือน 10,000 บาท จะกู้ได้ประมาณ 650,000 บาท"
-              >
-                <FontAwesomeIcon icon={faCircleInfo} />
+          <div className="mb-6 sm:w-[804px] ">
+            <label className="flex text-black text-[14px] mb-1">
+              ผลคำนวณสินเชื่อ{" "}
+              <span className="sm:inline-block hidden">(กรณีกู้ได้ 100%)</span>
+              <span className="my-auto ">
+                <CustomTooltip message="ตัวเลขที่แสดงจะเป็นตัวเลขเฉพาะการกู้ โดยวิธีคำนวณง่ายๆ เงินเดือน 10,000 บาท จะกู้ได้ประมาณ 650,000 บาท" />
               </span>
             </label>
             <div className="bg-white rounded-lg shadow-md p-6 border border-gray-300">
               <div className="">
-                <div className="sm:flex justify-between items-end mb-3">
+                <div className="sm:flex justify-between  items-baseline mb-3">
                   <p className="sm:text-[16px] text-black text-nowrap">
                     วงเงินกู้
                   </p>
-                  <div className="flex items-end justify-end">
-                    <p className="sm:text-[32px] text-black font-bold mr-3">
+                  <div className="flex  items-baseline ">
+                    <p className="sm:text-[32px] text-[28px] text-black font-bold mr-3">
                       {price}
                     </p>
                     <p>บาท</p>
                   </div>
                 </div>
-                <div className="sm:flex justify-between items-end mb-3">
-                  <p className="sm:text-[16px] text-black text-nowrap">
+                <div className="sm:flex justify-between  items-baseline mb-3">
+                  <p className="sm:text-[16px] text-black text-nowrap ">
                     รายได้ขั้นต่ำต่อเดือน
                   </p>
-                  <div className="flex items-end justify-end">
-                    <p className="sm:text-[32px] text-black font-bold mr-3">
-                      {(
-                        (parseFloat(price.replace(/,/g, "")) / 650000) *
-                        10000
+                  <div className="flex  items-baseline ">
+                    <p className="sm:text-[32px] text-[28px] text-black font-bold mr-3">
+                      {Math.round(
+                        (parseFloat(price.replace(/,/g, "")) / 650000) * 10000
                       ).toLocaleString()}{" "}
+                      
                     </p>
                     <p>บาท</p>
                   </div>
                 </div>
               </div>
               <hr className="my-5" />
-              <div className="mt-5 flex justify-between items-end">
+              <div className="mt-5 sm:flex justify-between items-baseline">
                 <p className="sm:text-[16px] text-black text-nowrap">
                   ยอดผ่อนต่อเดือน
                 </p>
-                <div className="flex items-end">
-                  <p className="sm:text-[32px] text-black font-bold mr-3 bottom-0">
+                <div className="flex items-baseline">
+                  <p className="sm:text-[32px] text-[28px] text-black font-bold mr-3 align-baseline bg-gradient-to-r from-green-500  to-indigo-400 inline-block text-transparent bg-clip-text">
                     {Number.isNaN(parseFloat(monthlyPayment))
                       ? 0
                       : parseFloat(monthlyPayment).toLocaleString()}
                   </p>
-                  <p>บาท</p>
+                  <p className="align-baseline">บาท</p>
                 </div>
               </div>
             </div>

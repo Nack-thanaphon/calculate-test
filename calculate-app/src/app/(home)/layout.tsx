@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={sarabun.className}>
         <Header />
-        <div className="m-5">{children}</div>
+        <div className="sm:m-5 m-2">{children}</div>
         <Footer />
       </body>
     </html>
