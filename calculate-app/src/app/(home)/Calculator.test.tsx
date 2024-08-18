@@ -2,7 +2,7 @@
 
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Calculator from "./Calculator";
+import Calculator from "./page";
 
 describe("Calculator", () => {
   test("renders the Calculator component", () => {
