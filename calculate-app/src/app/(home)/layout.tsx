@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Sarabun } from "next/font/google";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
