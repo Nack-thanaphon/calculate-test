@@ -25,7 +25,3 @@ pnpm install
 ```javascript
 pnpm run dev
 ```
-3.UnitTest
-```javascript
-pnpm run test
-```
