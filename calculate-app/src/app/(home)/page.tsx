@@ -63,20 +63,27 @@ export default function Calculator() {
 
   const handleInterestRateChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const formatNumber = Number(value);
+    let formatNumber = Number(value);
 
-    const regex = /^\d{0,2}(\.\d{0,2})?$/;
-
-    if (formatNumber <= 99.99 && regex.test(value)) {
-      setInterestRate(value);
-    } else if (formatNumber > 99.99) {
-      setInterestRate("99.99");
+    if (formatNumber > 99.99) {
+      formatNumber = 99.99;
     }
+
+    const formattedValue = new Intl.NumberFormat().format(formatNumber);
+    setInterestRate(formattedValue);
     validateInterestRate(value);
   };
 
   const handleYearsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setYears(e.target.value);
+    const rawValue = e.target.value.replace(/\D/g, "");
+    let formatNumber = Number(rawValue);
+
+    if (formatNumber > 99) {
+      formatNumber = 99;
+    }
+
+    const formattedValue = new Intl.NumberFormat().format(formatNumber);
+    setYears(formattedValue);
     validateYears(e.target.value);
   };
 
