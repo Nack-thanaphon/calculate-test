@@ -62,15 +62,26 @@ export default function Calculator() {
   };
 
   const handleInterestRateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    let formatNumber = Number(value);
+    let value = e.target.value;
 
-    if (formatNumber > 99.99) {
-      formatNumber = 99.99;
+    // Ensure the value is not empty and is a valid number
+    if (value === "" || isNaN(Number(value))) {
+      setInterestRate("0");
+      validateInterestRate("0");
+      return;
+    }
+    let formatNumber = parseFloat(value);
+    if (formatNumber < 0 || formatNumber > 99.99) {
+      setInterestRate("0");
+      validateInterestRate("0");
+      return;
     }
 
-    const formattedValue = new Intl.NumberFormat().format(formatNumber);
-    setInterestRate(formattedValue);
+    if (value.length > 1 && value.startsWith("0")) {
+      value = value.substring(1);
+    }
+
+    setInterestRate(value);
     validateInterestRate(value);
   };
 
