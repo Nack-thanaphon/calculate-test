@@ -168,6 +168,7 @@ export default function Calculator() {
                   <input
                     type="text"
                     value={interestRate}
+                    aria-label="อัตราดอกเบี้ย"
                     onChange={handleInterestRateChange}
                     className={`w-full px-4 py-3 border bg-white ${
                       errors.interestRate ? "border-red-500" : "border-gray-300"
@@ -190,6 +191,7 @@ export default function Calculator() {
                   <input
                     type="text"
                     value={years}
+                    aria-label="ระยะเวลากู้"
                     onChange={handleYearsChange}
                     className={` w-full px-4 py-3 border bg-white ${
                       errors.years ? "border-red-500" : "border-gray-300"
@@ -214,6 +216,7 @@ export default function Calculator() {
                 ล้างข้อมูล
               </button>
               <button
+                aria-label="คำนวณสินเชื่อ"
                 type="submit"
                 className={`flex items-center justify-center text-nowrap  bg-[#E82583] text-white px-4 py-3 rounded-[12px] text-[16px] font-bold ${
                   isFormValid ? "" : "opacity-50 cursor-not-allowed"

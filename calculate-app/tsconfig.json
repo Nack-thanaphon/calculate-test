@@ -14,11 +14,12 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react", // Updated to "react"
     "incremental": true,
     "types": [
       "jest",
-      "node"
+      "node",
+      "@testing-library/jest-dom" // Added @testing-library/jest-dom
     ],
     "plugins": [
       {
@@ -37,7 +38,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(home)/Calculator.test.js"
+    "jest.setup.ts" // Ensure jest.setup.ts is included
   ],
   "exclude": [
     "node_modules"
